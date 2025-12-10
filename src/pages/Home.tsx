@@ -137,9 +137,9 @@ export const Home: React.FC = () => {
       {/* 헤더 */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">UX CopyGen</h1>
+          <h1 className="text-3xl font-bold text-gray-900">DevHelper AI</h1>
           <p className="text-gray-600 mt-1">
-            AI 기반 UX 카피라이팅 자동 생성기 & 에러 메시지 분석
+            개발자를 위한 AI 도우미 - UX 카피 생성 & 에러 메시지 분석
           </p>
         </div>
       </header>
@@ -280,7 +280,7 @@ export const Home: React.FC = () => {
       {/* 푸터 */}
       <footer className="mt-12 py-6 border-t bg-white">
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
-          <p>UX CopyGen - AI 기반 UX 카피라이팅 자동 생성기</p>
+          <p>DevHelper AI - 개발자를 위한 AI 도우미</p>
         </div>
       </footer>
     </div>
