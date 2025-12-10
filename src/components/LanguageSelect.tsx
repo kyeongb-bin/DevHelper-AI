@@ -19,13 +19,13 @@ export const LanguageSelect: React.FC<LanguageSelectProps> = ({
 }) => {
   return (
     <div className="w-full">
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
         답변 언어
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as Language)}
-        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
+        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors duration-200"
       >
         <option value="">언어를 선택하세요</option>
         {languageOptions.map((option) => (

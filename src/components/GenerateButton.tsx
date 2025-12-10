@@ -17,8 +17,8 @@ export const GenerateButton: React.FC<GenerateButtonProps> = ({
       disabled={disabled || isLoading}
       className={`w-full px-6 py-3 rounded-lg font-medium text-white transition-all ${
         disabled || isLoading
-          ? "bg-gray-400 cursor-not-allowed"
-          : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800 shadow-md hover:shadow-lg"
+          ? "bg-gray-400 dark:bg-gray-600 cursor-not-allowed"
+          : "bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 active:bg-blue-800 dark:active:bg-blue-700 shadow-md hover:shadow-lg"
       }`}
     >
       {isLoading ? (

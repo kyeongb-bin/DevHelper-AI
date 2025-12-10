@@ -6,6 +6,7 @@ import { CopyResult } from "../components/CopyResult";
 import { ErrorInput } from "../components/ErrorInput";
 import { LanguageSelect } from "../components/LanguageSelect";
 import { ErrorAnalysisResult } from "../components/ErrorAnalysisResult";
+import { ThemeToggle } from "../components/ThemeToggle";
 import { useCopyStore } from "../store/useCopyStore";
 import { generateCopy } from "../api/generateCopy";
 import { analyzeError } from "../api/analyzeError";
@@ -133,26 +134,33 @@ export const Home: React.FC = () => {
   const isAnalyzeDisabled = !errorMessage || !errorLanguage || isAnalyzing;
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       {/* 헤더 */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900">DevHelper AI</h1>
-          <p className="text-gray-600 mt-1">
-            개발자를 위한 AI 도우미 - UX 카피 생성 & 에러 메시지 분석
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                DevHelper AI
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400 mt-1">
+                개발자를 위한 AI 도우미 - UX 카피 생성 & 에러 메시지 분석
+              </p>
+            </div>
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
       {/* 탭 네비게이션 */}
       <div className="max-w-7xl mx-auto px-4 pt-6">
-        <div className="flex gap-2 border-b">
+        <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
           <button
             onClick={() => setActiveTab("copy")}
             className={`px-6 py-3 font-medium transition-colors ${
               activeTab === "copy"
-                ? "text-blue-600 border-b-2 border-blue-600"
-                : "text-gray-600 hover:text-gray-900"
+                ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
             }`}
           >
             UX 카피 생성
@@ -161,8 +169,8 @@ export const Home: React.FC = () => {
             onClick={() => setActiveTab("error")}
             className={`px-6 py-3 font-medium transition-colors ${
               activeTab === "error"
-                ? "text-blue-600 border-b-2 border-blue-600"
-                : "text-gray-600 hover:text-gray-900"
+                ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
             }`}
           >
             에러 메시지 분석
@@ -176,8 +184,8 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* 좌측 패널 - 옵션 선택 */}
             <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 transition-colors duration-200">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-6">
                   옵션 선택
                 </h2>
                 <div className="space-y-4">
@@ -213,8 +221,8 @@ export const Home: React.FC = () => {
                   />
                 </div>
                 {error && (
-                  <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-sm text-red-600">{error}</p>
+                  <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
                   </div>
                 )}
               </div>
@@ -222,8 +230,8 @@ export const Home: React.FC = () => {
 
             {/* 우측 패널 - 결과 */}
             <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 transition-colors duration-200">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-6">
                   생성 결과
                 </h2>
                 <CopyResult data={result} onRegenerate={handleRegenerate} />
@@ -234,8 +242,8 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* 좌측 패널 - 에러 메시지 입력 */}
             <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 transition-colors duration-200">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-6">
                   에러 메시지 입력
                 </h2>
                 <div className="space-y-4">
@@ -254,8 +262,8 @@ export const Home: React.FC = () => {
                   />
                 </div>
                 {analysisError && (
-                  <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <p className="text-sm text-red-600">{analysisError}</p>
+                  <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                    <p className="text-sm text-red-600 dark:text-red-400">{analysisError}</p>
                   </div>
                 )}
               </div>
@@ -263,8 +271,8 @@ export const Home: React.FC = () => {
 
             {/* 우측 패널 - 분석 결과 */}
             <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-lg p-6 transition-colors duration-200">
+                <h2 className="text-xl font-semibold text-gray-800 dark:text-white mb-6">
                   분석 결과
                 </h2>
                 <ErrorAnalysisResult
@@ -278,8 +286,8 @@ export const Home: React.FC = () => {
       </main>
 
       {/* 푸터 */}
-      <footer className="mt-12 py-6 border-t bg-white">
-        <div className="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+      <footer className="mt-12 py-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 transition-colors duration-200">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-600 dark:text-gray-400 text-sm">
           <p>DevHelper AI - 개발자를 위한 AI 도우미</p>
         </div>
       </footer>
