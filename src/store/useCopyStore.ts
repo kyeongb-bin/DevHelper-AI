@@ -5,6 +5,8 @@ import type {
   ServiceType,
   CopyResponse,
   FavoriteCopy,
+  Language,
+  ErrorAnalysisResponse,
 } from "../types/copy";
 
 interface CopyState {
@@ -22,6 +24,13 @@ interface CopyState {
   // 즐겨찾기
   favorites: FavoriteCopy[];
 
+  // 에러 메시지 분석
+  errorMessage: string;
+  errorLanguage: Language | "";
+  errorAnalysis: ErrorAnalysisResponse | null;
+  isAnalyzing: boolean;
+  analysisError: string | null;
+
   // 액션들
   setComponent: (component: UIComponent) => void;
   setTone: (tone: Tone) => void;
@@ -32,6 +41,11 @@ interface CopyState {
   setError: (error: string | null) => void;
   addFavorite: (favorite: Omit<FavoriteCopy, "id" | "createdAt">) => void;
   removeFavorite: (id: string) => void;
+  setErrorMessage: (message: string) => void;
+  setErrorLanguage: (language: Language) => void;
+  setErrorAnalysis: (analysis: ErrorAnalysisResponse | null) => void;
+  setAnalyzing: (isAnalyzing: boolean) => void;
+  setAnalysisError: (error: string | null) => void;
   reset: () => void;
 }
 
@@ -44,6 +58,11 @@ const initialState = {
   isLoading: false,
   error: null,
   favorites: [],
+  errorMessage: "",
+  errorLanguage: "" as Language | "",
+  errorAnalysis: null,
+  isAnalyzing: false,
+  analysisError: null,
 };
 
 export const useCopyStore = create<CopyState>((set) => ({
@@ -71,6 +90,11 @@ export const useCopyStore = create<CopyState>((set) => ({
     set((state) => ({
       favorites: state.favorites.filter((fav) => fav.id !== id),
     })),
+  setErrorMessage: (message) => set({ errorMessage: message }),
+  setErrorLanguage: (language) => set({ errorLanguage: language }),
+  setErrorAnalysis: (analysis) => set({ errorAnalysis: analysis }),
+  setAnalyzing: (isAnalyzing) => set({ isAnalyzing }),
+  setAnalysisError: (error) => set({ analysisError: error }),
   reset: () => set(initialState),
 }));
 
