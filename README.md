@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# DevHelper AI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI 기반 개발자 도우미 - UX 카피 생성 및 에러 메시지 분석
 
-Currently, two official plugins are available:
+## 📌 프로젝트 소개
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**DevHelper AI**는 개발자를 위한 AI 기반 도구로, 다음 기능을 제공합니다:
 
-## React Compiler
+- **UX 카피 생성**: UI 컴포넌트에 맞는 UX Writing 문구 자동 생성
+- **에러 메시지 분석**: 에러 메시지를 분석하여 원인과 해결방법 제시
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ 주요 기능
 
-## Expanding the ESLint configuration
+### 1. UX 카피 생성
+- UI 컴포넌트 선택 (버튼, 모달, 알림, 에러 메시지 등)
+- 톤 & 매너 선택 (친절한, 격식 있는, 재치 있는, 중립적인)
+- 서비스 유형 선택 (배달, 커머스, 소셜, 금융, 헬스케어)
+- 상황별 맞춤 문구 생성
+- 여러 버전의 문구 제안
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 2. 에러 메시지 분석
+- 에러 메시지 입력 및 분석
+- 다국어 지원 (한국어, English, 日本語, 中文)
+- 원인 요약 제공
+- 해결방법 단계별 안내
+- 결과 복사 기능
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ 기술 스택
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **React 19** + **TypeScript**
+- **Vite** - 빌드 도구
+- **TailwindCSS v4** - 스타일링
+- **Zustand** - 상태 관리
+- **Google Gemini API** - AI 모델
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🚀 시작하기
+
+### 설치
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 환경 변수 설정
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`.env` 파일을 생성하고 Google Gemini API 키를 추가하세요:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+VITE_GEMINI_API_KEY=your_api_key_here
 ```
+
+### 개발 서버 실행
+
+```bash
+npm run dev
+```
+
+### 빌드
+
+```bash
+npm run build
+```
+
+## 📝 사용 방법
+
+1. **UX 카피 생성**
+   - 좌측 패널에서 컴포넌트, 톤, 서비스 유형 선택
+   - 상황 설명 입력
+   - "문구 생성하기" 버튼 클릭
+   - 생성된 문구 중 선택하여 사용
+
+2. **에러 메시지 분석**
+   - "에러 메시지 분석" 탭으로 이동
+   - 에러 메시지 입력
+   - 답변 언어 선택
+   - "분석하기" 버튼 클릭
+   - 원인과 해결방법 확인
+
+## 📄 라이선스
+
+MIT
