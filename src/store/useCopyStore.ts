@@ -7,6 +7,8 @@ import type {
   FavoriteCopy,
   Language,
   ErrorAnalysisResponse,
+  ConversionDirection,
+  JsonConversionResponse,
 } from "../types/copy";
 
 interface CopyState {
@@ -31,6 +33,15 @@ interface CopyState {
   isAnalyzing: boolean;
   analysisError: string | null;
 
+  // JSON 변환
+  conversionDirection: ConversionDirection;
+  jsonInput: string;
+  typescriptInput: string;
+  interfaceName: string;
+  conversionResult: JsonConversionResponse | null;
+  isConverting: boolean;
+  conversionError: string | null;
+
   // 액션들
   setComponent: (component: UIComponent) => void;
   setTone: (tone: Tone) => void;
@@ -46,6 +57,13 @@ interface CopyState {
   setErrorAnalysis: (analysis: ErrorAnalysisResponse | null) => void;
   setAnalyzing: (isAnalyzing: boolean) => void;
   setAnalysisError: (error: string | null) => void;
+  setConversionDirection: (direction: ConversionDirection) => void;
+  setJsonInput: (input: string) => void;
+  setTypeScriptInput: (input: string) => void;
+  setInterfaceName: (name: string) => void;
+  setConversionResult: (result: JsonConversionResponse | null) => void;
+  setConverting: (isConverting: boolean) => void;
+  setConversionError: (error: string | null) => void;
   reset: () => void;
 }
 
@@ -63,6 +81,13 @@ const initialState = {
   errorAnalysis: null,
   isAnalyzing: false,
   analysisError: null,
+  conversionDirection: "json-to-ts" as ConversionDirection,
+  jsonInput: "",
+  typescriptInput: "",
+  interfaceName: "Data",
+  conversionResult: null,
+  isConverting: false,
+  conversionError: null,
 };
 
 export const useCopyStore = create<CopyState>((set) => ({
@@ -95,6 +120,13 @@ export const useCopyStore = create<CopyState>((set) => ({
   setErrorAnalysis: (analysis) => set({ errorAnalysis: analysis }),
   setAnalyzing: (isAnalyzing) => set({ isAnalyzing }),
   setAnalysisError: (error) => set({ analysisError: error }),
+  setConversionDirection: (direction) => set({ conversionDirection: direction }),
+  setJsonInput: (input) => set({ jsonInput: input }),
+  setTypeScriptInput: (input) => set({ typescriptInput: input }),
+  setInterfaceName: (name) => set({ interfaceName: name }),
+  setConversionResult: (result) => set({ conversionResult: result }),
+  setConverting: (isConverting) => set({ isConverting }),
+  setConversionError: (error) => set({ conversionError: error }),
   reset: () => set(initialState),
 }));
 

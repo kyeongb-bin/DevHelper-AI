@@ -6,6 +6,7 @@ import { CopyResult } from "../components/CopyResult";
 import { ErrorInput } from "../components/ErrorInput";
 import { LanguageSelect } from "../components/LanguageSelect";
 import { ErrorAnalysisResult } from "../components/ErrorAnalysisResult";
+import { JsonConverter } from "../components/JsonConverter";
 import { ThemeToggle } from "../components/ThemeToggle";
 import { useCopyStore } from "../store/useCopyStore";
 import { generateCopy } from "../api/generateCopy";
@@ -37,7 +38,7 @@ const serviceOptions: { value: ServiceType; label: string }[] = [
 ];
 
 export const Home: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<"copy" | "error">("copy");
+  const [activeTab, setActiveTab] = useState<"copy" | "error" | "json">("copy");
 
   const {
     component,
@@ -144,7 +145,7 @@ export const Home: React.FC = () => {
                 DevHelper AI
               </h1>
               <p className="text-gray-600 dark:text-gray-400 mt-1">
-                개발자를 위한 AI 도우미 - UX 카피 생성 & 에러 메시지 분석
+                개발자를 위한 AI 도우미 - UX 카피 생성, 에러 분석, JSON 변환
               </p>
             </div>
             <ThemeToggle />
@@ -174,6 +175,16 @@ export const Home: React.FC = () => {
             }`}
           >
             에러 메시지 분석
+          </button>
+          <button
+            onClick={() => setActiveTab("json")}
+            className={`px-6 py-3 font-medium transition-colors ${
+              activeTab === "json"
+                ? "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+            }`}
+          >
+            JSON ↔ TypeScript
           </button>
         </div>
       </div>
@@ -238,7 +249,7 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </div>
-        ) : (
+        ) : activeTab === "error" ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* 좌측 패널 - 에러 메시지 입력 */}
             <div className="space-y-6">
@@ -282,6 +293,8 @@ export const Home: React.FC = () => {
               </div>
             </div>
           </div>
+        ) : (
+          <JsonConverter />
         )}
       </main>
 
