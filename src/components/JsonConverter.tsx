@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useCopyStore } from "../store/useCopyStore";
 import { convertJsonToTypeScript, convertTypeScriptToJson } from "../api/convertJson";
-import type { ConversionDirection } from "../types/copy";
 
 export const JsonConverter: React.FC = () => {
   const {
