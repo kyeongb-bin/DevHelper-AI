@@ -2,8 +2,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import type {
     AnalyzeErrorRequest,
     ErrorAnalysisResponse,
-    Language,
-} from '../types/copy';
+} from '../types/error';
+import type { Language } from '../types/common';
 
 // Gemini API 초기화
 const genAI = new GoogleGenerativeAI(

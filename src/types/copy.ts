@@ -1,3 +1,5 @@
+// UX 카피 생성 관련 타입
+
 // UI 컴포넌트 타입
 export type UIComponent =
     | 'button'
@@ -45,41 +47,4 @@ export interface FavoriteCopy {
     detail: string;
     suggestions: string[];
     createdAt: Date;
-}
-
-// 언어 타입
-export type Language = 'ko' | 'en' | 'ja' | 'zh';
-
-// 에러 메시지 분석 요청 타입
-export interface AnalyzeErrorRequest {
-    errorMessage: string;
-    language: Language;
-}
-
-// 에러 메시지 분석 응답 타입
-export interface ErrorAnalysisResponse {
-    summary: string; // 원인 요약
-    solution: string; // 해결방법
-}
-
-// JSON 변환 방향 타입
-export type ConversionDirection =
-    | 'json-to-ts'
-    | 'ts-to-json';
-
-// JSON → TypeScript 변환 요청 타입
-export interface JsonToTsRequest {
-    json: string;
-    interfaceName?: string;
-}
-
-// TypeScript → JSON 변환 요청 타입
-export interface TsToJsonRequest {
-    typescript: string;
-}
-
-// JSON 변환 응답 타입
-export interface JsonConversionResponse {
-    result: string;
-    explanation?: string;
 }

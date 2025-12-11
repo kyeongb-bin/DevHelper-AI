@@ -1,5 +1,5 @@
 import React from "react";
-import type { ErrorAnalysisResponse } from "../types/copy";
+import type { ErrorAnalysisResponse } from "../types/error";
 
 interface ErrorAnalysisResultProps {
   data: ErrorAnalysisResponse | null;

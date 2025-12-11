@@ -10,14 +10,15 @@ import { JsonConverter } from '../components/JsonConverter';
 import { ThemeToggle } from '../components/ThemeToggle';
 import { DailyConcept } from '../components/DailyConcept';
 import { useCopyStore } from '../store/useCopyStore';
+import { useErrorStore } from '../store/useErrorStore';
 import { generateCopy } from '../api/generateCopy';
 import { analyzeError } from '../api/analyzeError';
 import type {
     UIComponent,
     Tone,
     ServiceType,
-    Language,
 } from '../types/copy';
+import type { Language } from '../types/common';
 
 const componentOptions: {
     value: UIComponent;
@@ -54,6 +55,7 @@ export const Home: React.FC = () => {
         'copy' | 'error' | 'json'
     >('copy');
 
+    // 카피 생성 관련 스토어
     const {
         component,
         tone,
@@ -69,6 +71,10 @@ export const Home: React.FC = () => {
         setResult,
         setLoading,
         setError,
+    } = useCopyStore();
+
+    // 에러 분석 관련 스토어
+    const {
         errorMessage,
         errorLanguage,
         errorAnalysis,
@@ -79,7 +85,7 @@ export const Home: React.FC = () => {
         setErrorAnalysis,
         setAnalyzing,
         setAnalysisError,
-    } = useCopyStore();
+    } = useErrorStore();
 
     const handleGenerate = async () => {
         if (!component || !tone || !service) {

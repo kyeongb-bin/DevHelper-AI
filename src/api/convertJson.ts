@@ -3,7 +3,7 @@ import type {
     JsonToTsRequest,
     TsToJsonRequest,
     JsonConversionResponse,
-} from '../types/copy';
+} from '../types/json';
 
 // Gemini API 초기화
 const genAI = new GoogleGenerativeAI(
