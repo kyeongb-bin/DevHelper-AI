@@ -26,6 +26,7 @@ export const JsonConverter: React.FC = () => {
     const [jsonError, setJsonError] = useState<
         string | null
     >(null);
+    const [isCopied, setIsCopied] = useState(false);
 
     // JSON 유효성 검증
     const validateJson = (jsonString: string): boolean => {
@@ -105,9 +106,15 @@ export const JsonConverter: React.FC = () => {
         }
     };
 
-    const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text);
-        alert('클립보드에 복사되었습니다!');
+    const handleCopy = async (text: string) => {
+        if (isCopied) return; // 이미 복사된 경우 무시
+        
+        try {
+            await navigator.clipboard.writeText(text);
+            setIsCopied(true);
+        } catch (err) {
+            console.error('복사 실패:', err);
+        }
     };
 
     return (
@@ -297,9 +304,24 @@ export const JsonConverter: React.FC = () => {
                                             conversionResult.result
                                         )
                                     }
-                                    className='px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors'
+                                    disabled={isCopied}
+                                    className={`px-4 py-2 text-sm rounded-lg transition-all flex items-center gap-1.5 ${
+                                        isCopied
+                                            ? 'bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 cursor-not-allowed'
+                                            : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300'
+                                    }`}
+                                    title={isCopied ? '복사됨' : '복사'}
                                 >
-                                    복사
+                                    {isCopied ? (
+                                        <>
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            <span>복사됨</span>
+                                        </>
+                                    ) : (
+                                        '복사'
+                                    )}
                                 </button>
                             )}
                         </div>

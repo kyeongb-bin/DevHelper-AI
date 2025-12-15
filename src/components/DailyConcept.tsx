@@ -5,6 +5,7 @@ import { generateDailyConcept } from "../api/generateConcept";
 export const DailyConcept: React.FC = () => {
   const { concept, isLoading, error, setConcept, setLoading, setError } = useDailyConcept();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     // 오늘의 개념이 없거나 날짜가 다르면 생성
@@ -106,14 +107,34 @@ export const DailyConcept: React.FC = () => {
           )}
         </div>
         <button
-          onClick={() => {
-            navigator.clipboard.writeText(concept);
-            alert("클립보드에 복사되었습니다!");
+          onClick={async () => {
+            if (isCopied) return; // 이미 복사된 경우 무시
+            
+            try {
+              await navigator.clipboard.writeText(concept);
+              setIsCopied(true);
+            } catch (err) {
+              console.error('복사 실패:', err);
+            }
           }}
-          className="flex-shrink-0 px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-200 dark:hover:bg-blue-900/60 transition-colors"
-          title="복사"
+          disabled={isCopied}
+          className={`flex-shrink-0 px-2 py-1 text-xs rounded transition-all flex items-center gap-1.5 ${
+            isCopied
+              ? 'bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 cursor-not-allowed'
+              : 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/60'
+          }`}
+          title={isCopied ? '복사됨' : '복사'}
         >
-          복사
+          {isCopied ? (
+            <>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              <span>복사됨</span>
+            </>
+          ) : (
+            '복사'
+          )}
         </button>
       </div>
     </div>

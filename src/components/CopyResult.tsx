@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { CopyResponse } from '../types/copy';
 import { useCopyStore } from '../store/useCopyStore';
 
@@ -18,6 +18,10 @@ export const CopyResult: React.FC<CopyResultProps> = ({
         service,
         detail,
     } = useCopyStore();
+
+    const [copiedIndex, setCopiedIndex] = useState<
+        number | null
+    >(null);
 
     if (!data) {
         return (
@@ -43,9 +47,18 @@ export const CopyResult: React.FC<CopyResultProps> = ({
         }
     };
 
-    const handleCopy = (text: string) => {
-        navigator.clipboard.writeText(text);
-        alert('클립보드에 복사되었습니다!');
+    const handleCopy = async (
+        text: string,
+        index: number
+    ) => {
+        if (copiedIndex === index) return; // 이미 복사된 경우 무시
+
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopiedIndex(index);
+        } catch (err) {
+            console.error('복사 실패:', err);
+        }
     };
 
     return (
@@ -78,12 +91,53 @@ export const CopyResult: React.FC<CopyResultProps> = ({
                             <div className='flex gap-2'>
                                 <button
                                     onClick={() =>
-                                        handleCopy(text)
+                                        handleCopy(
+                                            text,
+                                            index
+                                        )
                                     }
-                                    className='px-3 py-1 text-xs bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded transition-colors'
-                                    title='복사'
+                                    disabled={
+                                        copiedIndex ===
+                                        index
+                                    }
+                                    className={`px-3 py-1 text-xs rounded transition-all flex items-center gap-1.5 ${
+                                        copiedIndex ===
+                                        index
+                                            ? 'bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 cursor-not-allowed'
+                                            : 'bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50'
+                                    }`}
+                                    title={
+                                        copiedIndex ===
+                                        index
+                                            ? '복사됨'
+                                            : '복사'
+                                    }
                                 >
-                                    복사
+                                    {copiedIndex ===
+                                    index ? (
+                                        <>
+                                            <svg
+                                                className='w-3.5 h-3.5'
+                                                fill='none'
+                                                stroke='currentColor'
+                                                viewBox='0 0 24 24'
+                                            >
+                                                <path
+                                                    strokeLinecap='round'
+                                                    strokeLinejoin='round'
+                                                    strokeWidth={
+                                                        2.5
+                                                    }
+                                                    d='M5 13l4 4L19 7'
+                                                />
+                                            </svg>
+                                            <span>
+                                                복사됨
+                                            </span>
+                                        </>
+                                    ) : (
+                                        '복사'
+                                    )}
                                 </button>
                                 <button
                                     onClick={() =>
