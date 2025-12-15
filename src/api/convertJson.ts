@@ -33,6 +33,9 @@ export async function convertJsonToTypeScript(
 - 중첩된 객체는 별도 인터페이스로 분리
 - 배열 타입은 적절히 표현
 - 옵셔널 필드는 ? 사용
+- 날짜/시간 값은 가능한 경우 Date 타입으로 지정
+  - ISO 8601 형식(예: "2024-01-01", "2024-01-01T12:34:56Z")의 문자열은 Date로 추론
+  - 필드명이 createdAt, updatedAt, deletedAt, date, datetime, timestamp 등인 경우 Date 타입을 우선적으로 고려
 - 주석은 포함하지마세요.
 - 인터페이스 이름: ${interfaceName}
 
